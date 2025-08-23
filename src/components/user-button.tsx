@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut } from "lucide-react";
+import { Loader, LogOut } from "lucide-react";
 import { DottedSeparator } from "@/components/dotted-separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
@@ -10,30 +10,20 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// import { useLogout } from "../api/use-logout";
-// import { useCurrent } from "../api/use-current";
-import { clearStoredUser, getStoredUser } from "@/lib/auth";
-import { useRouter } from "next/navigation";
+import { useCurrentUser } from "@/features/auth/hooks/use-current";
+import { useLogout } from "@/features/auth/hooks/use-logout";
 
 export const UserButton = () => {
-    const router = useRouter();
-    // const { data: user, isLoading } = useCurrent();
-    // const { mutate: logout } = useLogout();
-    const handleLogout = () => {
-        clearStoredUser()
-        router.push('/login')
+    const { data: user, isLoading } = useCurrentUser();
+    const { mutate: logout } = useLogout();   
+
+    if (isLoading) {
+        return (
+            <div className="size-10 rounded-full flex items-center justify-center bg-neutral-200 border-neutral-300">
+                <Loader className="siz3-4 animate-spin text-muted-foreground"/>
+            </div>
+        )
     }
-
-    const user = getStoredUser();
-    
-
-    // if (isLoading) {
-    //     return (
-    //         <div className="size-10 rounded-full flex items-center justify-center bg-neutral-200 border-neutral-300">
-    //             <Loader className="siz3-4 animate-spin text-muted-foreground"/>
-    //         </div>
-    //     )
-    // }
 
     if (!user) {
         return null;
@@ -72,7 +62,7 @@ export const UserButton = () => {
                 <DottedSeparator className="mb-1" />
 
                 <DropdownMenuItem 
-                    onClick={handleLogout}
+                    onClick={() => logout()}
                     className="h-10 flex items-center justify-center text-amber-300 font-medium cursor-pointer">
                     <LogOut className="size-4 mr-2" />
                         Logout

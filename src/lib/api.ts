@@ -2,9 +2,9 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000',
   timeout: 10000,
-  // withCredentials: true, // 👈 PENTING! untuk cookies
+  withCredentials: true, // 👈 PENTING! untuk cookies
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',

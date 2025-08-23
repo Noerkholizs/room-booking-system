@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "@/component
 import { loginSchema } from "../server/schema";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useLogin } from "../api/use-login";
+import { useLogin } from "../hooks/use-login";
 
 
 export const LoginCard = () => {

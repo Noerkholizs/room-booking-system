@@ -1,12 +1,20 @@
-// import { redirect } from "next/navigation";
-// import { getCurrent } from "@/features/auth/actions";
+"use client"
 
 import { LoginCard } from "@/features/auth/components/login-card";
+import { useCurrentUser } from "@/features/auth/hooks/use-current";
+import { Role } from "@/features/auth/server/types";
+import { redirect } from "next/navigation";
 
 const SignInPage = () => {
-    // const user = await getCurrent();
+    const { data, isLoading } = useCurrentUser();
 
-    // if (user) return redirect("/");
+    
+    if (data && !isLoading) {
+        if (data.role === Role.USER) {
+            return redirect("/user/bookings");
+        }
+        return redirect("/admin");
+    };
     
     return (
         <LoginCard />

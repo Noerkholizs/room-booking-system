@@ -27,6 +27,15 @@ export interface LoginResponse {
     }
 }
 
+export interface CurrentUserResponse {
+    success: boolean
+    statusCode: number
+    message: string
+    data: {
+        user: User
+    }
+}
+
 export interface AuthErrorResponse {
     success: boolean
     statusCode: number

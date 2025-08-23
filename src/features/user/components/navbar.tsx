@@ -1,18 +1,14 @@
-// import { MobileSidebar } from "./mobile-sidebar";
+"use client"
 
 import { Menu } from "lucide-react";
-import { getStoredUser } from "@/lib/auth";
-import { useRouter } from "next/navigation";
 import { UserButton } from "@/components/user-button";
+import { useCurrentUser } from "@/features/auth/hooks/use-current";
 
 export const Navbar = () => {
-    const user = getStoredUser()
-    const router = useRouter()
-    
+    const { isLoading, data} = useCurrentUser();
 
-    if (!user) {
-      router.push('/login')
-      return
+    if (!isLoading && !data) {
+        return null
     }
     
     return (
@@ -28,7 +24,7 @@ export const Navbar = () => {
                         
                     <div className="flex items-center space-x-4">
                         <span className="text-sm text-gray-600">
-                            Welcome, <span className="font-medium">{user.name}</span>
+                            Welcome, <span className="font-medium">{data?.name}</span>
                         </span>
                         <UserButton />
                     </div>
