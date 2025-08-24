@@ -7,8 +7,17 @@ export enum BookingStatus {
   REJECTED = 'REJECTED'
 };
 
+export interface AdminUpdateBookingRequest {
+  status: BookingStatus.APPROVED | BookingStatus.REJECTED;
+};
+
 export type CreateBookingRequest = z.infer<typeof CreateBookingSchema>;
 export type UpdateBookingRequest = z.infer<typeof UpdateBookingSchema>;
+
+export const AdminUpdateBookingSchema = z.object({
+  status: z.enum(["APPROVED", "REJECTED"]),
+});
+
 
 export interface Booking {
   id: number;

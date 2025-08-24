@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html>
       <body className={cn(inter.className, "antialiased min-h-screen")}>
         <QueryProvider>
           {children}

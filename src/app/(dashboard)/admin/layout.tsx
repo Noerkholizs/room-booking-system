@@ -1,33 +1,26 @@
+"use client"
 
-// import { CreateWorkSpaceModal } from "@/features/workspaces/components/create-workspace-modal"
+import { AdminSidebar } from "@/features/admin/components/sidebar"
+import { AdminNavbar } from "@/features/admin/components/navbar"
 
-import { Navbar } from "@/components/navbar"
-import { Sidebar } from "@/components/sidebar"
-
-interface AdminDashBoardLayoutPorps {
-    children: React.ReactNode
+interface AdminDashboardLayoutProps {
+  children: React.ReactNode
 }
 
-const AdminDashBoardLayout = ({children} : AdminDashBoardLayoutPorps) => {
+const AdminDashboardLayout = ({ children }: AdminDashboardLayoutProps) => {
   return (
-    <div className="min-h-screen">
-        {/* <CreateWorkSpaceModal /> */}
-        <div className="flex w-full h-full">
-            <div className="fixed left-0 top-0 hidden lg:block lg:w-[264px] h-full overflow-y-auto">
-                <Sidebar />
-            </div>
-
-            <div className="lg:pl-[264px] w-full">
-                <div className="mx-auto max-w-screen-2xl h-full">
-                    <Navbar />
-                    <main className="h-full py-8 px-6 flex flex-col">
-                        {children}
-                    </main>
-                </div>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <AdminNavbar />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex gap-6">
+          <AdminSidebar />
+          <main className="flex-1 min-w-0">
+            {children}
+          </main>
         </div>
+      </div>
     </div>
   )
 }
 
-export default AdminDashBoardLayout
+export default AdminDashboardLayout;

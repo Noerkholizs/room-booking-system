@@ -24,7 +24,7 @@ const routes = [
     },
     {
         label: "New Booking",
-        href: "/user/bookings/create",
+        href: "/user/bookings/new",
         icon: Calendar,
         activeIcon: Calendar
     },

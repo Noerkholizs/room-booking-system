@@ -1,14 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import { createBooking, deleteBooking, fetchBookingById, fetchMyBookings, fetchRooms, updateBooking } from "../api/api"
+import { createBooking, deleteBooking, fetchBookingById, fetchAdminBookings, fetchRooms, updateBooking } from "../api/api"
 import { toast } from "sonner"
 import { AxiosError } from "axios"
 import { GlobalErrorResponse } from "@/lib/types/types"
-import { BookingFilter } from "../server/types"
+import { BookingFilter } from "../../bookings/server/types"
 
-export const useMyBookings = (filters?: BookingFilter) => {
+export const useAdminBookings = (filters?: BookingFilter) => {
   return useQuery({
-    queryKey: ['my-bookings', filters],
-    queryFn: () => fetchMyBookings(filters),
+    queryKey: ['admin-bookings', filters],
+    queryFn: () => fetchAdminBookings(filters),
     refetchOnWindowFocus: false,
   })
 }
@@ -36,7 +36,6 @@ export const useCreateBooking = () => {
     mutationFn: createBooking,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['my-bookings'] })
-      queryClient.invalidateQueries({ queryKey: ['admin-bookings'] })
       queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] })
       queryClient.invalidateQueries({ queryKey: ['recent-bookings'] })
       
@@ -56,14 +55,13 @@ export const useUpdateBooking = () => {
     mutationFn: updateBooking,
     onSuccess: (updatedBooking) => {
       queryClient.setQueryData(['booking', updatedBooking.id], updatedBooking)
-      queryClient.invalidateQueries({ queryKey: ['my-bookings'] })
       queryClient.invalidateQueries({ queryKey: ['admin-bookings'] })
+      queryClient.invalidateQueries({ queryKey: ['my-bookings'] })
       
       toast.success('Booking berhasil diupdate!')
     },
     onError: (errors: AxiosError) => {
-        const error = errors.response?.data as GlobalErrorResponse    
-
+      const error = errors.response?.data as GlobalErrorResponse
       toast.error(error.message || 'Gagal mengupdate booking')
     },
   })

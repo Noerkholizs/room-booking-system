@@ -5,10 +5,12 @@ import {
     BookingFilter,
     CreateBookingRequest, 
     UpdateBookingRequest,
-    BookingWithRelations, 
-} from "../server/types";
+    BookingWithRelations,
+    AdminUpdateBookingRequest,
+    BookingStatus, 
+} from "../../bookings/server/types";
 
-export const fetchMyBookings = async (filters?: BookingFilter): Promise<BookingWithRelations[]> => {
+export const fetchAdminBookings = async (filters?: BookingFilter): Promise<BookingWithRelations[]> => {
   const params = new URLSearchParams()
   
   if (filters?.status && filters.status !== 'ALL') {
@@ -27,7 +29,7 @@ export const fetchMyBookings = async (filters?: BookingFilter): Promise<BookingW
     params.append('search', filters.search)
   }
 
-  const response = await api.get(`/api/v1/booking/my-bookings?${params.toString()}`)
+  const response = await api.get(`/api/v1/admin/bookings?${params.toString()}`)
 
   return response.data.data
 }
@@ -42,8 +44,8 @@ export const createBooking = async (data: CreateBookingRequest): Promise<Booking
   return response.data.data
 }
 
-export const updateBooking = async ({ id, data }: { id: string; data: UpdateBookingRequest }): Promise<Booking> => {
-  const response = await api.put(`/api/v1/booking/update/${id}`, data)
+export const updateBooking = async ({ id, data }: { id: number; data: AdminUpdateBookingRequest }): Promise<Booking> => {
+  const response = await api.put(`/api/v1/admin/bookings/${id}/status`, data)
   return response.data.data
 }
 
