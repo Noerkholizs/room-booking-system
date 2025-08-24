@@ -8,7 +8,7 @@ export const isAdmin = (user: User | null): boolean => {
 }
 
 export const getRedirectPath = (user: User): string => {
-  return isAdmin(user) ? '/admin' : '/user/bookings'
+  return isAdmin(user) ? '/admin/bookings' : '/user/bookings'
 }
 
 export const hasRole = (user: User | null, role: User['role']): boolean => {

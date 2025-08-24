@@ -18,8 +18,17 @@ import {
   Activity
 } from "lucide-react";
 import Link from "next/link";
+import { useCurrentUser } from "@/features/auth/hooks/use-current";
+import { redirect } from "next/navigation";
 
 const AdminDashboard = () => {
+
+  const { data, isLoading} = useCurrentUser();
+  
+  if (!data && !isLoading) {
+    return redirect("/login")
+  }
+
   const stats = {
     totalBookings: 1247,
     pendingApprovals: 8,
@@ -75,7 +84,10 @@ const AdminDashboard = () => {
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white">
         <h1 className="text-2xl font-bold mb-2">Welcome back, Admin!</h1>
         <p className="text-blue-100">
-          Heres whats happening with your room booking system today.
+          Here&apos;s what&apos;s happening with your room booking system today.
+        </p>
+        <p className="text-blue-200 text-sm mt-2 italic">
+          * All data displayed are mockup data for demonstration purposes
         </p>
       </div>
 
@@ -149,7 +161,7 @@ const AdminDashboard = () => {
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="text-lg font-semibold">Recent Booking Requests</CardTitle>
             <Button variant="outline" size="sm" asChild>
-              <Link href="/dashboard/admin/bookings">
+              <Link href="/admin/bookings">
                 View All <ArrowRight className="h-4 w-4 ml-1" />
               </Link>
             </Button>
@@ -185,28 +197,28 @@ const AdminDashboard = () => {
           <CardContent>
             <div className="grid grid-cols-2 gap-3">
               <Button asChild className="h-20 flex-col gap-2">
-                <Link href="/dashboard/admin/bookings">
+                <Link href="/admin/bookings">
                   <CheckCircle className="h-6 w-6" />
                   <span className="text-sm">Approve Bookings</span>
                 </Link>
               </Button>
               
               <Button variant="outline" asChild className="h-20 flex-col gap-2">
-                <Link href="/dashboard/admin/rooms">
+                <Link href="/admin/rooms">
                   <Building className="h-6 w-6" />
                   <span className="text-sm">Manage Rooms</span>
                 </Link>
               </Button>
               
               <Button variant="outline" asChild className="h-20 flex-col gap-2">
-                <Link href="/dashboard/admin/schedule">
+                <Link href="/admin/schedule">
                   <Calendar className="h-6 w-6" />
                   <span className="text-sm">View Schedule</span>
                 </Link>
               </Button>
               
               <Button variant="outline" asChild className="h-20 flex-col gap-2">
-                <Link href="/dashboard/admin/analytics">
+                <Link href="/admin/analytics">
                   <BarChart3 className="h-6 w-6" />
                   <span className="text-sm">Analytics</span>
                 </Link>

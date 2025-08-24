@@ -13,7 +13,7 @@ const SignInPage = () => {
         if (data.role === Role.USER) {
             return redirect("/user/bookings");
         }
-        return redirect("/admin");
+        return redirect("/admin/bookings");
     };
     
     return (

@@ -122,9 +122,9 @@ export const LoginCard = () => {
             </div>
             <CardContent className=" flex items-center justify-center">
                 <p>
-                    Already have an account?
-                    <Link href="/sign-up">
-                        <span className="text-blue-700">&nbsp;Sign Up</span>
+                    Doesnt have an account?
+                    <Link href="/chat-admin">
+                        <span className="text-blue-700">&nbsp;Chat Admin</span>
                     </Link>
                 </p>
             </CardContent>
