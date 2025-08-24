@@ -1,4 +1,3 @@
-// Path: src/app/(dashboard)/user/bookings/page.tsx (MyBookings - Fixed)
 "use client"
 
 import { useState } from 'react'

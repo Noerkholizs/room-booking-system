@@ -15,7 +15,6 @@ import { Calendar, Clock, MapPin, AlertCircle, Users } from "lucide-react";
 
 import { useCreateBooking, useRooms } from "@/features/bookings/hooks/use-booking";
 
-// Schema validation untuk form booking - disesuaikan dengan CreateBookingSchema
 const createBookingSchema = z.object({
   roomId: z.number().min(1, "Please select a room"),
   startTime: z.string().min(1, "Start time is required"),
@@ -31,7 +30,6 @@ const createBookingSchema = z.object({
   path: ["endTime"],
 });
 
-// Type untuk time options
 type TimeOption = {
   value: string;
   label: string;

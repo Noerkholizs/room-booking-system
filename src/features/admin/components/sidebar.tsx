@@ -1,4 +1,3 @@
-// Path: src/features/admin/components/sidebar.tsx
 import { AdminNavigation } from "./navigation";
 
 export const AdminSidebar = () => {

@@ -1,4 +1,3 @@
-// Path: src/features/bookings/components/booking-form.tsx
 "use client";
 
 import { z } from "zod";
@@ -16,7 +15,6 @@ import { Calendar, Clock, MapPin, AlertCircle, Users } from "lucide-react";
 
 import { useRooms } from "@/features/bookings/hooks/use-booking";
 
-// Schema validation untuk booking form
 const bookingSchema = z.object({
   roomId: z.number().min(1, "Please select a room"),
   startTime: z.string().min(1, "Start time is required"),
@@ -32,13 +30,11 @@ const bookingSchema = z.object({
   path: ["endTime"],
 });
 
-// Type untuk time options
 type TimeOption = {
   value: string;
   label: string;
 };
 
-// Type untuk form values
 export type BookingFormValues = z.infer<typeof bookingSchema>;
 
 interface BookingFormProps {
@@ -74,10 +70,8 @@ export const BookingForm = ({
     },
   });
 
-  // Get today's date in YYYY-MM-DD format for min date
   const today = new Date().toISOString().split('T')[0];
 
-  // Generate time options (every 30 minutes from 08:00 to 22:00)
   const timeOptions: TimeOption[] = [];
   for (let hour = 8; hour <= 22; hour++) {
     for (let minute = 0; minute < 60; minute += 30) {
@@ -89,7 +83,6 @@ export const BookingForm = ({
     }
   }
 
-  // Handle rooms loading error
   if (roomsError) {
     return (
       <Card className="w-full h-full border-none shadow-none">
